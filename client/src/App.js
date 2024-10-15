@@ -1,7 +1,28 @@
-import './App.css';
 import { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation
+} from "react-router-dom";
 import { accessToken, logout, getCurrentUserProfile } from './spotify';
 import { catchErrors } from './utils';
+import Home from './Pages/Home';
+import TopTracks from './Pages/TopTracks';
+import TopArtists from './Pages/TopArtists';
+import Playlists from './Pages/Playlists';
+import PlaylistDetails from './Pages/PlaylistDetails';
+import './App.css';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   const [token, setToken] = useState(null);
@@ -30,21 +51,17 @@ function App() {
             Log in to Spotify
           </a>
         ) : (
-          <>
-            <h1>Logged in!</h1>
-            <button onClick={logout}>Log Out</button>
+          <Router>
+            <ScrollToTop />
 
-            {profile && (
-              <div>
-                <h1>Welcome {profile.display_name}.</h1>
-                <p>{profile.followers.total} Followers</p>
-                {profile.images.length && profile.images[0].url && (
-                  <img src={profile.images[0].url} alt="Avatar" />
-                )}
-              </div>
-            )}
-
-          </>
+            <Routes>
+              <Route path="/top-artists" element={<TopArtists />} />
+              <Route path="/top-tracks" element={<TopTracks />} />
+              <Route path="/playlists/:id" element={<PlaylistDetails />} />
+              <Route path="/playlists" element={<Playlists />} />
+              <Route path="/" element={<Home profile={profile} logout={logout}/>} />
+            </Routes>
+          </Router>
         )}
       </header>
     </div>
