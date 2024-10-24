@@ -7,23 +7,32 @@ import {
 } from "react-router-dom";
 import { accessToken, logout, getCurrentUserProfile } from './spotify';
 import { catchErrors } from './utils';
-import Home from './Pages/Home';
 import TopTracks from './Pages/TopTracks';
 import TopArtists from './Pages/TopArtists';
 import Playlists from './Pages/Playlists';
 import PlaylistDetails from './Pages/PlaylistDetails';
-import styled from 'styled-components/macro';
 import { GlobalStyle } from './styles';
+import { Login, Profile } from './Pages';
+import styled from 'styled-components/macro';
 
-const StyledLoginButton = styled.a`
-  background-color: var(--green);
+const StyledLogoutButton = styled.button`
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: rgba(0,0,0,.7);
   color: var(--white);
-  padding: 10px 20px;
-  margin: 20px auto;
-  border-radius: 30px;
-  display: inline-block;
+  font-size: var(--fz-sm);
+  font-weight: 700;
+  border-radius: var(--border-radius-pill);
+  z-index: 10;
+  @media (min-width: 768px) {
+    right: var(--spacing-lg);
+  }
 `;
 
+// Scroll to top of page when changing routes
+// https://reactrouter.com/web/guides/scroll-restoration/scroll-to-top
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -58,24 +67,24 @@ function App() {
 
       <header className="App-header">
         {!token? (
-          <StyledLoginButton
-            className="App-link"
-            href="http://localhost:8888/login"
-          >
-            Log in to Spotify
-          </StyledLoginButton>
+          <Login />
         ) : (
-          <Router>
-            <ScrollToTop />
+          <>
+            <StyledLogoutButton onClick={logout}>Log Out</StyledLogoutButton>
 
-            <Routes>
-              <Route path="/top-artists" element={<TopArtists />} />
-              <Route path="/top-tracks" element={<TopTracks />} />
-              <Route path="/playlists/:id" element={<PlaylistDetails />} />
-              <Route path="/playlists" element={<Playlists />} />
-              <Route path="/" element={<Home profile={profile} logout={logout}/>} />
-            </Routes>
-          </Router>
+            <Router>
+              <ScrollToTop />
+
+              <Routes>
+                <Route path="/top-artists" element={<TopArtists />} />
+                <Route path="/top-tracks" element={<TopTracks />} />
+                <Route path="/playlists/:id" element={<PlaylistDetails />} />
+                <Route path="/playlists" element={<Playlists />} />
+                <Route path="/" element={<Profile />} />
+              </Routes>
+            </Router>
+          </>
+          
         )}
       </header>
     </div>
