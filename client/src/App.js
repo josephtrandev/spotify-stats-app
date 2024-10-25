@@ -7,12 +7,8 @@ import {
 } from "react-router-dom";
 import { accessToken, logout, getCurrentUserProfile } from './spotify';
 import { catchErrors } from './utils';
-import TopTracks from './Pages/TopTracks';
-import TopArtists from './Pages/TopArtists';
-import Playlists from './Pages/Playlists';
-import PlaylistDetails from './Pages/PlaylistDetails';
 import { GlobalStyle } from './styles';
-import { Login, Profile } from './Pages';
+import { Login, Profile, TopArtists, TopTracks, Playlists, PlaylistDetails } from './Pages';
 import styled from 'styled-components/macro';
 
 const StyledLogoutButton = styled.button`

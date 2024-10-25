@@ -1,7 +1,5 @@
-import React from "react";
-
-function Playlists() {
-    return <div>THIS IS THE PLAYLISTS PAGE</div>;
-}
+const Playlists = () => (
+    <h1>Playlists component</h1>
+);
 
 export default Playlists;

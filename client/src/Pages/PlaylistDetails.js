@@ -1,7 +1,5 @@
-import React from "react";
+const PlaylistsDetails = () => (
+    <h1>Playlists Details component</h1>
+);
 
-function PlaylistDetails() {
-    return <div>THIS IS THE PLAYLIST DETAILS PAGE</div>;
-}
-
-export default PlaylistDetails;
+export default PlaylistsDetails;
