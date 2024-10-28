@@ -6,6 +6,12 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  /**
+   * React Strict Mode
+   * Will cause playlists to render twice in dev but not in prod
+   * Can disable by commenting out to see same view as prod
+   * https://react.dev/reference/react/StrictMode#fixing-bugs-found-by-double-rendering-in-development
+   */
   <React.StrictMode>
     <App />
   </React.StrictMode>
