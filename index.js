@@ -11,15 +11,6 @@ const REDIRECT_URI = process.env.REDIRECT_URI;
 
 console.log(process.env.CLIENT_ID);
 
-app.get('/' , (req, res) => {
-    const data = {
-        name: 'Joseph',
-        isAwesome: true
-    };
-
-    res.json(data);
-});
-
 /**
  * Generates a random string containing numbers and letters
  * @param   {number} length The length of the string
