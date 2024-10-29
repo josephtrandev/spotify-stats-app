@@ -49,7 +49,10 @@ const PlaylistsDetails = () => {
 
         // Also update the audioFeatures state variable using the track IDs
         const fetchAudioFeatures = async () => {
-            const ids = tracksData.items.map(({ track }) => track.id).join(',');
+            const ids = tracksData.items
+                .filter(({ track }) => track !== null) // Check for unavailable tracks
+                .map(({ track }) => track.id)
+                .join(',');
             const { data } = await getAudioFeaturesForTracks(ids);
             setAudioFeatures(audioFeatures => ([
                 ...audioFeatures ? audioFeatures : [],
@@ -64,23 +67,25 @@ const PlaylistsDetails = () => {
         if (!tracks || !audioFeatures) {
             return null;
         }
+    
+        return tracks
+            .filter(({ track }) => track !== null) // Check for unavailable tracks
+            .map(({ track }) => {
+                const trackToAdd = { ...track }; // Create a copy of track to avoid mutation
+    
+                if (!trackToAdd.audio_features) {
+                    const audioFeaturesObj = audioFeatures.find(item => {
+                        if (!item || !track) {
+                            return null;
+                        }
+                        return item.id === track.id;
+                    });
+    
+                    trackToAdd['audio_features'] = audioFeaturesObj;
+                }
 
-        return tracks.map(({ track }) => {
-            const trackToAdd = track;
-
-            if (!track.audio_features) {
-                const audioFeaturesObj = audioFeatures.find(item => {
-                    if (!item || !track) {
-                        return null;
-                    }
-                    return item.id === track.id;
-                });
-
-                trackToAdd['audio_features'] = audioFeaturesObj;
-            }
-
-            return trackToAdd;
-        });
+                return trackToAdd;
+            });
     }, [tracks, audioFeatures]);
 
     // Sort tracks by audio feature to be used in template
