@@ -18,7 +18,6 @@ const TopTracks = () => {
 
     return(
         <main>
-
             {topTracks && (
                 <SectionWrapper title="Top Tracks" breadcrumb="true">
                     <TimeRangeButtons activeRange={activeRange} setActiveRange={setActiveRange} />
