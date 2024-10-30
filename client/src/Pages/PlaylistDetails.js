@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { catchErrors } from '../utils';
 import { getPlaylistById, getAudioFeaturesForTracks } from '../spotify';
-import { TrackList, SectionWrapper } from '../components';
+import { Loader, SectionWrapper, TrackList } from '../components';
 import { StyledHeader, StyledDropdown } from '../styles';
 
 const PlaylistsDetails = () => {
@@ -108,7 +108,7 @@ const PlaylistsDetails = () => {
 
     return (
         <main>
-        {playlist && (
+        {playlist ? (
             <>
                 <StyledHeader>
                     <div className="header__inner">
@@ -153,6 +153,8 @@ const PlaylistsDetails = () => {
                     </SectionWrapper>
                 </main>
             </>
+        ) : (
+            <Loader />
         )}
         </main>
     );

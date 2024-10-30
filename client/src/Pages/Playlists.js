@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { catchErrors } from '../utils';
 import { getCurrentUserPlaylists } from '../spotify';
-import { SectionWrapper, PlaylistsGrid } from '../components';
+import { Loader, PlaylistsGrid, SectionWrapper } from '../components';
 
 const Playlists = () => {
     const [playlistsData, setPlaylistsData] = useState(null);
@@ -49,8 +49,10 @@ const Playlists = () => {
     return (
         <main>
             <SectionWrapper title="Playlists" breadcrumb="true">
-                {playlists && (
+                {playlists ? (
                     <PlaylistsGrid playlists={playlists} />
+                ) : (
+                    <Loader />
                 )} 
             </SectionWrapper>
         </main>
