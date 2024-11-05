@@ -182,3 +182,13 @@ export const getPlaylistById = playlist_id => {
 export const getAudioFeaturesForTracks = ids => {
     return axios.get(`/audio-features?ids=${ids}`);
 };
+
+/**
+ * Get Track Details
+ * https://developer.spotify.com/documentation/web-api/reference/get-track
+ * @param {string} id - The Spotify ID for the track
+ * @returns {Promise}
+ */
+export const getTrackById = track_id => {
+    return axios.get(`/tracks/${track_id}`);
+};
