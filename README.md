@@ -1,7 +1,7 @@
 # Spotify Stats
 
 ## Overview
-This project aims to utilize the Spotify API to retrieve and display song data for a user. The application will allow users to authenticate with their Spotify account and view listening information such as top songs with track names, artists, and more.
+This project aims to utilize the Spotify API to retrieve and display profile data for a user. The application will allow users to authenticate with their Spotify account to view listening information such as their top songs, top artists, and more.
 
 ## Table of Contents
 
@@ -19,9 +19,9 @@ This project aims to utilize the Spotify API to retrieve and display song data f
 - Display detailed info about songs
 
 ## Preview Images
-[![Top Artists Screenshot](/images/topartists.png)]
-[![Top Tracks Screenshot](/images/toptracks.png)]
-[![Playlist Screenshot](/images/playlist.png)]
+![Top Artists Screenshot](/images/topartists.png)
+![Top Tracks Screenshot](/images/toptracks.png)
+![Playlist Screenshot](/images/playlist.png)
 
 ## Local Installation & Setup
 
