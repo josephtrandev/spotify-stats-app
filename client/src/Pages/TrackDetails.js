@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { catchErrors } from '../utils';
+import { catchErrors, formatDuration } from '../utils';
 import { getTrackById } from '../spotify';
 import { Loader, SectionWrapper } from '../components';
-import { StyledHeader, StyledTrackList } from '../styles';
+import { StyledHeader } from '../styles';
 
 const TrackDetails = () => {
     const { id } = useParams();
@@ -41,10 +41,8 @@ const TrackDetails = () => {
                             </div>
                             <h1 className="header__name">{trackDetails.name}</h1>
                             <p className="header__meta">
-                                <span>{trackDetails.album.release_date}</span>
-                                <span>
-                                    {trackDetails.album.total_tracks} {`song${trackDetails.album.total_tracks !== 1 ? 's' : ''}`}
-                                </span>
+                                <span>Released: {trackDetails.album.release_date}</span>
+                                <span>Song Length: {formatDuration(trackDetails.duration_ms)}</span>
                             </p>
                         </div>
                     </div>
