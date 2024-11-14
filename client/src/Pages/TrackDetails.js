@@ -1,22 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { catchErrors, formatDuration } from '../utils';
-import { getTrackById } from '../spotify';
-import { Loader, SectionWrapper } from '../components';
+import { getTrackById, getAudioFeaturesForSingle } from '../spotify';
+import { DetailsGrid, Loader, SectionWrapper } from '../components';
 import { StyledHeader } from '../styles';
 
 const TrackDetails = () => {
     const { id } = useParams();
     const [trackDetails, setTrackDetails] = useState(null);
+    const [audioFeatures, setAudioFeatures] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async() => {
             const { data } = await getTrackById(id);
+            const { data: audioFeatures } = await getAudioFeaturesForSingle(id);
             setTrackDetails(data);
+            setAudioFeatures(audioFeatures);
         };
-
-        console.log(trackDetails);
 
         catchErrors(fetchData());
     }, [id]);
@@ -51,8 +52,9 @@ const TrackDetails = () => {
                 <main>
                     <SectionWrapper>
                         <button onClick={() => navigate(-1)}>Go Back</button>
-
-                    </SectionWrapper>
+                        <DetailsGrid popularity={trackDetails.popularity} danceability={audioFeatures.danceability}
+                            energy={audioFeatures.energy} valence={audioFeatures.valence} tempo={audioFeatures.tempo} />                        
+                    </SectionWrapper>                    
                 </main>
             </>
         ) : (

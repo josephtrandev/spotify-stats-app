@@ -22,3 +22,13 @@ export const formatDuration = ms => {
     const seconds = Math.floor(((ms % 60000) / 1000));
     return `${minutes}:${seconds < 10 ? '0': ''}${seconds}`;
 }
+
+/**
+ * Format decimal to percentage
+ * @param {float} number decimal value
+ * @returns {string} formatted duration string
+ * @example 0.1536 -> '15%'
+ */
+export const formatPercentage = number => {
+    return `${(number * 100).toFixed(0)}`;
+}
