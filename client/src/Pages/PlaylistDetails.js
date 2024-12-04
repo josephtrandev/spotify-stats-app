@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { catchErrors } from '../utils';
-import { getPlaylistById, getAudioFeaturesForTracks } from '../spotify';
+import { getPlaylistById } from '../spotify';
 import { Loader, SectionWrapper, TrackList } from '../components';
 import { StyledHeader, StyledDropdown } from '../styles';
 
@@ -11,9 +11,8 @@ const PlaylistsDetails = () => {
     const [playlist, setPlaylist] = useState(null);
     const [tracksData, setTracksData] = useState(null);
     const [tracks, setTracks] = useState(null);
-    const [audioFeatures, setAudioFeatures] = useState(null);
     const [sortValue, setSortValue] = useState('');
-    const sortOptions = ['danceability', 'tempo', 'energy'];
+    const sortOptions = ['popularity', 'duration'];
 
     useEffect(() => {
         const fetchData = async() => {
@@ -46,65 +45,34 @@ const PlaylistsDetails = () => {
         ]));
 
         catchErrors(fetchMoreData());
-
-        // Also update the audioFeatures state variable using the track IDs
-        const fetchAudioFeatures = async () => {
-            const ids = tracksData.items
-                .filter(({ track }) => track !== null) // Check for unavailable tracks
-                .map(({ track }) => track.id)
-                .join(',');
-            const { data } = await getAudioFeaturesForTracks(ids);
-            setAudioFeatures(audioFeatures => ([
-                ...audioFeatures ? audioFeatures : [],
-                ...data['audio_features']
-            ]));
-        };
-        catchErrors(fetchAudioFeatures());
     }, [tracksData]);
 
-    // Map over tracks and add audio_features property to each track
-    const tracksWithAudioFeatures = useMemo(() => {
-        if (!tracks || !audioFeatures) {
+    const tracksWithMetadata = useMemo(() => {
+        if (!tracks) {
             return null;
         }
     
         return tracks
             .filter(({ track }) => track !== null) // Check for unavailable tracks
-            .map(({ track }) => {
-                const trackToAdd = { ...track }; // Create a copy of track to avoid mutation
-    
-                if (!trackToAdd.audio_features) {
-                    const audioFeaturesObj = audioFeatures.find(item => {
-                        if (!item || !track) {
-                            return null;
-                        }
-                        return item.id === track.id;
-                    });
-    
-                    trackToAdd['audio_features'] = audioFeaturesObj;
-                }
-
-                return trackToAdd;
-            });
-    }, [tracks, audioFeatures]);
+            .map(({ track }) => ({
+                ...track,
+                duration: track.duration_ms,
+                popularity: track.popularity,
+            }));
+    }, [tracks]);
 
     // Sort tracks by audio feature to be used in template
     const sortedTracks = useMemo(() => {
-        if (!tracksWithAudioFeatures) {
+        if (!tracksWithMetadata) {
             return null;
         }
 
-        return [...tracksWithAudioFeatures].sort((a, b) => {
-            const aFeatures = a['audio_features'];
-            const bFeatures = b['audio_features'];
+        return [...tracksWithMetadata].sort((a, b) => {
+            if (!sortValue) return 0;
 
-            if (!aFeatures || !bFeatures) {
-                return false;
-            }
-
-            return bFeatures[sortValue] - aFeatures[sortValue];
+            return b[sortValue] - a[sortValue];
         });
-    }, [sortValue, tracksWithAudioFeatures]);
+    }, [sortValue, tracksWithMetadata]);
 
     return (
         <main>

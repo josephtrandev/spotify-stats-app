@@ -174,16 +174,6 @@ export const getPlaylistById = playlist_id => {
 };
 
 /**
- * Get Audio Features for Several Tracks
- * https://developer.spotify.com/documentation/web-api/reference/get-several-audio-features
- * @param {string} ids - A comma-separated list of the Spotify IDs for the tracks
- * @returns {Promise}
- */
-export const getAudioFeaturesForTracks = ids => {
-    return axios.get(`/audio-features?ids=${ids}`);
-};
-
-/**
  * Get Track Details
  * https://developer.spotify.com/documentation/web-api/reference/get-track
  * @param {string} id - The Spotify ID for the track
@@ -191,14 +181,4 @@ export const getAudioFeaturesForTracks = ids => {
  */
 export const getTrackById = track_id => {
     return axios.get(`/tracks/${track_id}`);
-};
-
-/**
- * Get Audio Features for Single Track
- * https://developer.spotify.com/documentation/web-api/reference/get-audio-features
- * @param {string} id - A comma-separated list of the Spotify IDs for the tracks
- * @returns {Promise}
- */
-export const getAudioFeaturesForSingle = track_id => {
-    return axios.get(`/audio-features/${track_id}`);
 };

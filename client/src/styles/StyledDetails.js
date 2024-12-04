@@ -96,11 +96,25 @@ const StyledDetails = styled.div`
   }
 
   .label {
+    position: relative;
     font-size: 1.2rem;
     color: #fff;
     text-transform: uppercase;
     margin-bottom: 10px;
     text-align: center;
+    padding-right: 15px;
+}
+
+  .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: -1;
+      margin-left: 5px;
+      width: 20px;
+      height: 20px;
+      filter: invert(1);
+      cursor: help;
   }
 
   .box .content .percent {
