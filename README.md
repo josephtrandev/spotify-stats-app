@@ -1,18 +1,18 @@
 # Spotify Stats
 
 ## Overview
-This project aims to utilize the Spotify API to retrieve and display profile data for a user. The application will allow users to authenticate with their Spotify account to view listening information such as their top songs, top artists, and more.
+This project uses the Spotify API to retrieve and display the user's profile data. The application will allow users to authenticate with their Spotify account to view listening information such as their top songs, top artists, and more.
 
 > :warning: **IMPORTANT NOTICE** :warning:
 >
 > Spotify has announced the deprecation of several key features in their Web API, effective **November 27th, 2024**.
 > 
-> Features in this app that utilized the Spotify API track audio features (energy, danceability, etc.) will no longer be functional
-> which means sorting playlist tracks by audio features and viewing each track's individual audio features will not be possible.
+> Features in this app that utilized the Spotify API's track audio features (energy, danceability, etc.) will no longer be functional
+> which means sorting tracks by audio features and viewing audio features will not be possible.
 >
-> UPDATE: Sorting playlist tracks by popularity and duration has been implemented and will replace sorting by audio features.
+> UPDATE: I have implemented sorting by popularity and duration to replace sorting by audio features.
 > 
-> :link: For more information, see their official announcement on the Spotify community forum: [Changes to Web API](https://community.spotify.com/t5/Spotify-for-Developers/Changes-to-Web-API/td-p/6540414).
+> :link: See their official announcement on the Spotify community forum: [Changes to Web API](https://community.spotify.com/t5/Spotify-for-Developers/Changes-to-Web-API/td-p/6540414).
 >
 > :link: Direct link to Spotify blog post: [Introducing some changes to our Web API](https://developer.spotify.com/blog/2024-11-27-changes-to-the-web-api)
 
