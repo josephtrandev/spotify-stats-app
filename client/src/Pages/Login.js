@@ -27,7 +27,7 @@ const StyledLoginButton = styled.a`
 const LOGIN_URI =
   process.env.NODE_ENV !== 'production'
     ? 'http://localhost:8888/login'
-    : 'https://spotify-stats-app.herokuapp.com/login';
+    : 'https://spotify-stats-app-dd82424b92bc.herokuapp.com/login';
 
 const Login = () => (
   <StyledLoginContainer>
